@@ -1,0 +1,19 @@
+{
+    "name": "gallahaaz/sql-query-library",
+    "description": "A PHP class to manipulate sql data",
+    "license": "MIT",
+    "keywords": ["sql", "query"],
+    "authors": [
+        {
+            "name": "Kevin Gallahaaz",
+            "email": "kevin.gallahaaz@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "Gallahaaz\\SqlQueryLibrary\\": "src"
+        }
+    }
+}
