@@ -1,6 +1,6 @@
 <?php namespace Gallahaaz\SqlQueryLibrary;
 
-use Gallahaaz\SqlQueryFinance\Connection as Connection;
+use Gallahaaz\SqlQueryLibrary\Connection as Connection;
 
 class Query extends Connection
 {
@@ -47,6 +47,18 @@ class Query extends Connection
             . ' WHERE '
             . $where ;
         return $this->query($cmd);
+    }
+
+    public function select( $fields, $table, $searcharray = null ){
+        $cmd = 'SELECT '
+            . $this->concatArray( $fields )
+            . ' FROM '
+            . $table;
+        if( isset($searchFields) ){
+            $cmd .= ' WHERE '
+                . concatMatriz( $searcharray );
+        }
+        return $this->query($cmd);   
     }
     
     public function search( $command, $page = 0, $defaultquant = 12 ) {

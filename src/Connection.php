@@ -1,6 +1,7 @@
 <?php
 
-namespace Gallahaaz\Sql;
+namespace Gallahaaz\SqlQueryLibrary;
+
 use mysqli;
 
 class Connection 
