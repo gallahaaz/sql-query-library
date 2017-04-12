@@ -7,20 +7,46 @@ class Query extends Connection
     
     public function query( $cmd ) {
         $this->connect();
-        $this->result = $this->DB->query($cmd);
+        $this->result = $this->DB->query( $cmd );
+        var_dump($this->result);
         if ( isset($this->DB->insert_id ) ) {
             $this->last_id = $this->DB->insert_id;
         }
-        $this->close();
+         $this->close();
         return $this->result;
     }
-    
-    public function queryFetch($cmd) {
-        $request = $this->query($cmd);
-        $this->result = $request->fetch_array(MYSQLI_ASSOC);
-        return $this->result;
+
+    public function fetch( $result, $method = MYSQLI_BOTH, $index = null ) {
+        $array = array();
+        $c=0;
+        while( $reg = $result->fetch_array($method) ){
+            if( isset($index) ){
+                $array[ $reg[$index] ] = $reg;
+            }else{
+                $array[$c] = $reg;
+                $c++;
+            }
+        }
+        return $array;
     }
-    
+
+     public function fetchSingle( $result, $method = MYSQLI_BOTH ) {
+        return $result->fetch_array($method);
+    }
+
+    public function select( $fields, $table, $searchFields = null ){
+            $cmd = 'SELECT '
+            . $this->concatArray( $fields )
+            . ' FROM '
+            . $table;
+        if( isset( $searchFields ) ){
+            $cmd .= ' WHERE '
+                . $this->concatMatriz( $searchFields );
+        }
+        echo $cmd;
+        return $this->query( $cmd );   
+    }
+
     public function insert( $table, $columns, $values ){
         $cmd = 'INSERT INTO '
         	. $table . '( '
@@ -48,18 +74,6 @@ class Query extends Connection
             . $where ;
         return $this->query($cmd);
     }
-
-    public function select( $fields, $table, $searcharray = null ){
-        $cmd = 'SELECT '
-            . $this->concatArray( $fields )
-            . ' FROM '
-            . $table;
-        if( isset($searchFields) ){
-            $cmd .= ' WHERE '
-                . concatMatriz( $searcharray );
-        }
-        return $this->query($cmd);   
-    }
     
     public function search( $command, $page = 0, $defaultquant = 12 ) {
         $counter = $this->query( $command );
@@ -85,23 +99,28 @@ class Query extends Connection
         $c = 0;
         $last = count( $array );
         foreach( $array as $key ){
-            $string .= $key;
             if( ( $c >= 1 ) &&( $c<$last ) ){
                 $string .= ',' ;
+                $string .= $key;
+            }else{
+                $string .= $key;
             }
+            $c++;
         }
         return $string;
     }
     
     public function concatMatriz( $array ){
+        var_dump($array);
         $string = '';
         $c = 0;
         $last = count( $array );
         foreach( $array as $key => $value ){
-            $string .= $key . '=' . $value;
-            if( ( $c >= 1 ) &&( $c<$last ) ){
-                $string .= ',' ;
+            if( ( $c >= 1 ) &&( $c < $last ) ){
+                $string .= ' AND ' ;
             }
+            $string .= $key . ' = ' . chr(39) .  $value . chr(39);
+            $c++;
         }
         return $string;
     }
