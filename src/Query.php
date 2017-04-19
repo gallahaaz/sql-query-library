@@ -8,7 +8,6 @@ class Query extends Connection
     public function query( $cmd ) {
         $this->connect();
         $this->result = $this->DB->query( $cmd );
-        var_dump($this->result);
         if ( isset($this->DB->insert_id ) ) {
             $this->last_id = $this->DB->insert_id;
         }
@@ -20,10 +19,26 @@ class Query extends Connection
         $array = array();
         $c=0;
         while( $reg = $result->fetch_array($method) ){
-            if( isset($index) ){
+            if( isset( $index ) ){
                 $array[ $reg[$index] ] = $reg;
             }else{
                 $array[$c] = $reg;
+                $c++;
+            }
+        }
+        return $array;
+    }
+    
+    public function fetchDecode( $result, $method = MYSQLI_BOTH, $index = null ) {
+        $array = array();
+        $c=0;
+        while( $reg = $result->fetch_array($method) ){
+            if( isset( $index ) ){
+                $array[ $reg[$index] ] = urldecode( $reg );
+            }else{
+                foreach($reg as $key => $value ){
+                    $array[$c][$key] = urldecode( $value );
+                }
                 $c++;
             }
         }
@@ -43,7 +58,6 @@ class Query extends Connection
             $cmd .= ' WHERE '
                 . $this->concatMatriz( $searchFields );
         }
-        echo $cmd;
         return $this->query( $cmd );   
     }
 
@@ -52,7 +66,7 @@ class Query extends Connection
         	. $table . '( '
             . $this->concatArray( $columns )
             . ' ) VALUES ( '
-            . $this->concatArray( $values )
+            . $this->concatArrayValues( $values )
             . ' ); ';
         return $this->query( $cmd );
     }
@@ -110,8 +124,26 @@ class Query extends Connection
         return $string;
     }
     
+    public function concatArrayValues( $array ){
+        $string = '';
+        $c = 0;
+        $last = count( $array );
+        foreach( $array as $key ){
+            if( ( $c >= 1 ) &&( $c<$last ) ){
+                if(is_integer($key)){
+                    $string .= ", " . $key;
+                }else{
+                    $string .= ", '" . $key . "' ";
+                }
+            }else{
+                $string .= " '" . $key . "' ";
+            }
+            $c++;
+        }
+        return $string;
+    }
+    
     public function concatMatriz( $array ){
-        var_dump($array);
         $string = '';
         $c = 0;
         $last = count( $array );
