@@ -5,6 +5,12 @@ use Gallahaaz\SqlQueryLibrary\Connection as Connection;
 class Query extends Connection
 {
     
+    private $sqlCommands = [
+        'NOW()',
+        'CURDATE()',
+        'CURTIME()'
+    ];
+    
     public function query( $cmd ) {
         $this->connect();
         $this->result = $this->DB->query( $cmd );
@@ -68,6 +74,7 @@ class Query extends Connection
             . ' ) VALUES ( '
             . $this->concatArrayValues( $values )
             . ' ); ';
+        echo $cmd;
         return $this->query( $cmd );
     }
     
@@ -133,7 +140,11 @@ class Query extends Connection
                 if(is_integer($key)){
                     $string .= ", " . $key;
                 }else{
-                    $string .= ", '" . $key . "' ";
+                    if( in_array( $key, $this->sqlCommands ) ){
+                        $string .= ", " . $key . " ";
+                    }else{
+                        $string .= ", '" . $key . "' ";
+                    }
                 }
             }else{
                 $string .= " '" . $key . "' ";
