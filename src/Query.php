@@ -84,7 +84,7 @@ class Query extends Connection
             . ' SET '
             . $this->concatMatriz( $set )
             . ' WHERE '
-            . $where;
+            . concatMatriz( $where );
         return $this->query( $cmd );
     }
     
@@ -92,7 +92,7 @@ class Query extends Connection
         $cmd = 'DELETE FROM '
             . $table
             . ' WHERE '
-            . $where ;
+            . concatMatriz( $where );
         return $this->query($cmd);
     }
     
@@ -159,11 +159,13 @@ class Query extends Connection
         $c = 0;
         $last = count( $array );
         foreach( $array as $key => $value ){
-            if( ( $c >= 1 ) &&( $c < $last ) ){
-                $string .= ' AND ' ;
+            if( isset( $value ) ){
+                if( ( $c >= 1 ) &&( $c < $last ) ){
+                    $string .= ' AND ' ;
+                }
+                $string .= $key . ' = ' . chr(39) .  $value . chr(39);
+                $c++;
             }
-            $string .= $key . ' = ' . chr(39) .  $value . chr(39);
-            $c++;
         }
         return $string;
     }
