@@ -82,9 +82,9 @@ class Query extends Connection
         $cmd = 'UPDATE ' 
         	. $table 
             . ' SET '
-            . $this->concatMatriz( $set )
+            . $this->concatSet( $set )
             . ' WHERE '
-            . concatMatriz( $where );
+            . $this->concatMatriz( $where );
         return $this->query( $cmd );
     }
     
@@ -92,7 +92,7 @@ class Query extends Connection
         $cmd = 'DELETE FROM '
             . $table
             . ' WHERE '
-            . concatMatriz( $where );
+            . $this->concatMatriz( $where );
         return $this->query($cmd);
     }
     
@@ -169,4 +169,21 @@ class Query extends Connection
         }
         return $string;
     }
+
+    public function concatSet( $matriz ){
+        $string = '';
+        $c = 0;
+        $last = count( $matriz );
+        foreach( $matriz as $key => $value ){
+            if( isset( $value ) ){
+                if( ( $c >= 1 ) &&( $c < $last ) ){
+                    $string .= ', ' ;
+                }
+                $string .= $key . ' = ' . chr(39) .  $value . chr(39);
+                $c++;
+            }
+        }
+        return $string;
+    }
+
 }
