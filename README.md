@@ -34,7 +34,14 @@ Após a configuração, apenas é necessário utilizar use Gallahaaz\SqlQueryLib
 <br/>A função retorna os resultados em uma matriz tridimensional indexada numericamente, seguida pelos campos selecionados através do $method.
 <br/>Se $index for definida, o index primário do campo será relacionado aos valores indexados na no retorno da mysqli->fetch_array.
 <br/>
-<h3>fetchDecode</h3> - Opera identicamente a fetch, apenas aplicando url_decode no retorno dos valores vindos do banco de dados.
+<h3>fetchDecode( $result, $method = MYSQLI_BOTH, $index = null )</h3> - Opera identicamente a fetch, apenas aplicando url_decode no retorno dos valores vindos do banco de dados.
 <br/>
 <h3>fetchSingle( $result, $method = MYSQLI_BOTH )</h3> - Realiza o fetch e retorna o último valor do resultado da query. Asim como o nome sugere, é indicado para buscas com resultado único.
 <br/>
+<h3>select( $fields, $table, $searchFields=null )</h3> - Realiza o comando select. $fields define quais campos serão buscados através de um array contendo os nomes dos campos da tabela a serem pesquisados.
+<br>
+Exemplos
+<q>$fields = ['nome', 'email'];</q>
+<q>$fields = ['DISTINCT nome'];</q>
+<q>$fields = ['DISTINCT nome','email'];</q>
+<q>$fields = ['COUNT(DISTINCT Country)'];</q>
