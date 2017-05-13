@@ -56,4 +56,28 @@ $searchFields(matriz) recebe os valores que serão usados de filtro no select. E
 </ul>
 $options(string) recebe uma string que pode conter qualquer comando sql posterior ao SELECT * FROM table WHERE data=data ($options)
 <br/>
-<h3>insert( $table, 
+<h3>insert( $table, $columns, $values)</h3> - Realiza uma inserção na tabela $table(string) nas $columns(array) dos $values(array).
+Ex :
+<br/>
+$table = 'user';
+<br/>
+$columns = ['nome','email','username'];
+<br/>
+$values = ['Kevin G', 'email@email.com', 'gallahaaz' ];
+<br/>
+$sql-query-library-object->insert($table, $columns, $values);
+<br/>
+<h3>update( $table, $set, $where )</h3> - Realiza uma operação de atualização no banco de dados. Atualiza $table com dados de $set em $where. Ex :
+$table = 'user';
+<br/>
+$set = [
+<br/>  'nome' => 'Arthur',
+<br/>  'email' => 'arthur@email.com'
+];
+
+<br/>
+$values = ['Kevin G', 'email@email.com', 'gallahaaz' ];
+<br/>
+$sql-query-library-object->update($table, $columns, $values);
+<br/>
+<h3>delee( $table, $where )</h3> - Realiza uma operação de exclusão no banco de dados.
