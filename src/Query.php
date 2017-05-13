@@ -10,6 +10,7 @@ class Query extends Connection
         'CURDATE()',
         'CURTIME()'
     ];
+    private $last_id = null;
     
     public function query( $cmd ) {
         $this->connect();
@@ -20,11 +21,15 @@ class Query extends Connection
          $this->close();
         return $this->result;
     }
+    
+    public function getLastId(){
+        return $this->last_id;
+    }
 
     public function fetch( $result, $method = MYSQLI_BOTH, $index = null ) {
         $array = array();
         $c=0;
-        while( $reg = $result->fetch_array($method) ){
+        while( $reg = $result->fetch_array( $method ) ){
             if( isset( $index ) ){
                 $array[ $reg[$index] ] = $reg;
             }else{
@@ -55,7 +60,7 @@ class Query extends Connection
         return $result->fetch_array($method);
     }
 
-    public function select( $fields, $table, $searchFields = null ){
+    public function select( $fields, $table, $searchFields = null, $options = null ){
             $cmd = 'SELECT '
             . $this->concatArray( $fields )
             . ' FROM '
@@ -63,6 +68,9 @@ class Query extends Connection
         if( isset( $searchFields ) ){
             $cmd .= ' WHERE '
                 . $this->concatMatriz( $searchFields );
+        };
+        if( isset( $options ) ){
+            $cmd .= $options;
         }
         return $this->query( $cmd );   
     }
