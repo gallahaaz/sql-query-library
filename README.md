@@ -3,6 +3,12 @@
 Pequena lib de comandos sql para simplificar conexões com o mysql.
 Opera apenas com um banco de dados e schema por vez, logo é indicada para websites simples que operem apenas uma base de dados por vez.
 
+<ul>
+  <li><a href="#Download">Download</a></li>
+  <li><a href="#Utilização">Utilização</a></li>
+  <li><a href="#Funções">Funções</a></li>
+</ul>
+
 <h2>Download</h2>
 
 Composer - Apenas é necessário incluir no require : "gallahaaz/sql-query-library": "dev-master"
