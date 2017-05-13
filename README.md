@@ -19,6 +19,7 @@ Opera apenas com um banco de dados e schema por vez, logo é indicada para websi
     <li><a href="#fUpdate">update( $table, $set, $where )</a></li>
     <li><a href="#fDelete">delete( $table, $where )</a></li>
   </ul>
+  <li><a href="#require">Requisitos</a></li>
 </ul>
 
 <h2 id="download">Download</h2>
@@ -92,3 +93,9 @@ $values = ['Kevin G', 'email@email.com', 'gallahaaz' ];
 $sql-query-library-object->update($table, $columns, $values);
 <br/>
 <h3 id="fDelete">delete( $table, $where )</h3> - Realiza uma operação de exclusão no banco de dados. Exclui um valor em $table baseado em $where
+<br/>
+<h3 id="require">Requisitos</h3>
+<ul>
+<li>Php 5.6.x</li>
+<li>composer</li>
+</ul>
