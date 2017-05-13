@@ -1,6 +1,7 @@
 # sql-query-library
 
 Pequena lib de comandos sql para simplificar conexões com o mysql.
+<br/>
 Opera apenas com um banco de dados e schema por vez, logo é indicada para websites simples que operem apenas uma base de dados por vez.
 
 <ul>
@@ -24,4 +25,16 @@ A conexão é simples , apenas sendo necessário configurar as seguintes constan
 Após a configuração, apenas é necessário utilizar use Gallahaaz\SqlQueryLibrary\Query e instanciar o objeto em uma variável.
 <br/>
 <h2 id="functions">Funções</h2>
-
+<br/>
+<h3>query( $command )</h3> - Realiza qualquer comando sql informado
+<br/>
+<h3>getLastId()</h3> - Retorna o id do ultimo insert executado
+<br/>
+<h3>fetch( $result, $method = MYSQLI_BOTH, $index = null )</h3> - Realiza o fetch de qualquer resultado de $query, atribuindo o resultado a um array. $method pode ser alterada na chamada da função para que o retorno seja apenas numérico ou associativo. 
+<br/>A função retorna os resultados em uma matriz tridimensional indexada numericamente, seguida pelos campos selecionados através do $method.
+<br/>Se $index for definida, o index primário do campo será relacionado aos valores indexados na no retorno da mysqli->fetch_array.
+<br/>
+<h3>fetchDecode</h3> - Opera identicamente a fetch, apenas aplicando url_decode no retorno dos valores vindos do banco de dados.
+<br/>
+<h3>fetchSingle( $result, $method = MYSQLI_BOTH )</h3> - Realiza o fetch e retorna o último valor do resultado da query. Asim como o nome sugere, é indicado para buscas com resultado único.
+<br/>
