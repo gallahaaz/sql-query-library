@@ -80,4 +80,4 @@ $values = ['Kevin G', 'email@email.com', 'gallahaaz' ];
 <br/>
 $sql-query-library-object->update($table, $columns, $values);
 <br/>
-<h3>delee( $table, $where )</h3> - Realiza uma operação de exclusão no banco de dados.
+<h3>delete( $table, $where )</h3> - Realiza uma operação de exclusão no banco de dados. Exclui um valor em $table baseado em $where
