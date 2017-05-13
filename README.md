@@ -41,7 +41,9 @@ Após a configuração, apenas é necessário utilizar use Gallahaaz\SqlQueryLib
 <h3>select( $fields, $table, $searchFields=null )</h3> - Realiza o comando select. $fields define quais campos serão buscados através de um array contendo os nomes dos campos da tabela a serem pesquisados.
 <br>
 Exemplos
-<q>$fields = ['nome', 'email'];</q>
-<q>$fields = ['DISTINCT nome'];</q>
-<q>$fields = ['DISTINCT nome','email'];</q>
-<q>$fields = ['COUNT(DISTINCT Country)'];</q>
+<ul>
+  <li>$fields = ['nome', 'email'];</li>
+  <li>$fields = ['DISTINCT nome'];</li>
+  <li>$fields = ['DISTINCT nome','email'];</li>
+  <li>$fields = ['COUNT(DISTINCT Country)'];</li>
+</ul>
