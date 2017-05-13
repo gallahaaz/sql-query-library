@@ -8,6 +8,17 @@ Opera apenas com um banco de dados e schema por vez, logo é indicada para websi
   <li><a href="#download">Download</a></li>
   <li><a href="#utilization">Utilização</a></li>
   <li><a href="#functions">Funções</a></li>
+  <ul>
+    <li><a href="#fQuery">query( $command )</a></li>
+    <li><a href="#fGetLastId">getLastId()</a></li>
+    <li><a href="#fFetch">fetch( $result, $method = MYSQLI_BOTH, $index = null )</a></li>
+    <li><a href="#fFetchDecode">fetchDecode( $result, $method = MYSQLI_BOTH, $index = null )</a></li>
+    <li><a href="#fFetchSingle">fetchSingle( $result, $method = MYSQLI_BOTH )</a></li>
+    <li><a href="#fSelect">select( $fields, $table, $searchFields=null, $options=null )</a></li>
+    <li><a href="#fInsert">insert( $table, $columns, $values)</a></li>
+    <li><a href="#fUpdate">update( $table, $set, $where )</a></li>
+    <li><a href="#fDelete">delete( $table, $where )</a></li>
+  </ul>
 </ul>
 
 <h2 id="download">Download</h2>
@@ -26,19 +37,19 @@ Após a configuração, apenas é necessário utilizar use Gallahaaz\SqlQueryLib
 <br/>
 <h2 id="functions">Funções</h2>
 <br/>
-<h3>query( $command )</h3> - Realiza qualquer comando $command(string) sql informado
+<h3 id="fQuery">query( $command )</h3> - Realiza qualquer comando $command(string) sql informado
 <br/>
-<h3>getLastId()</h3> - Retorna o id do ultimo insert executado (return int)
+<h3 id="fGetLastId">getLastId()</h3> - Retorna o id do ultimo insert executado (return int)
 <br/>
-<h3>fetch( $result, $method = MYSQLI_BOTH, $index = null )</h3> - Realiza o fetch de qualquer resultado de query() passado através de $result, atribuindo os valores a um array. $method(string) pode ser alterada na chamada da função para que o retorno seja apenas numérico ou associativo.
+<h3 id="fFetch">fetch( $result, $method = MYSQLI_BOTH, $index = null )</h3> - Realiza o fetch de qualquer resultado de query() passado através de $result, atribuindo os valores a um array. $method(string) pode ser alterada na chamada da função para que o retorno seja apenas numérico ou associativo.
 <br/>A função retorna os resultados em uma matriz tridimensional indexada numericamente, seguida pelos campos selecionados através do $method, caso $index(string) não seja definida.
 <br/>Se $index(string) for definida, o index primário do campo será relacionado aos valores indexados na no retorno da mysqli->fetch_array.
 <br/>
-<h3>fetchDecode( $result, $method = MYSQLI_BOTH, $index = null )</h3> - Opera identicamente a fetch, apenas aplicando url_decode no retorno dos valores vindos do banco de dados.
+<h3 id="fFetchDecode">fetchDecode( $result, $method = MYSQLI_BOTH, $index = null )</h3> - Opera identicamente a fetch, apenas aplicando url_decode no retorno dos valores vindos do banco de dados.
 <br/>
-<h3>fetchSingle( $result, $method = MYSQLI_BOTH )</h3> - Realiza o fetch e retorna o último valor do resultado da query. Asim como o nome sugere, é indicado para buscas com resultado único.
+<h3 id="fFetchSingle">fetchSingle( $result, $method = MYSQLI_BOTH )</h3> - Realiza o fetch e retorna o último valor do resultado da query. Asim como o nome sugere, é indicado para buscas com resultado único.
 <br/>
-<h3>select( $fields, $table, $searchFields=null, $options=null )</h3> - Realiza o comando select. $fields(array) define quais campos serão buscados através de um array contendo os nomes dos campos da tabela a serem pesquisados. Exemplos :
+<h3 id="fSelect">select( $fields, $table, $searchFields=null, $options=null )</h3> - Realiza o comando select. $fields(array) define quais campos serão buscados através de um array contendo os nomes dos campos da tabela a serem pesquisados. Exemplos :
 <ul>
   <li>$fields = ['nome', 'email'];</li>
   <li>$fields = ['DISTINCT nome'];</li>
@@ -56,7 +67,7 @@ $searchFields(matriz) recebe os valores que serão usados de filtro no select. E
 </ul>
 $options(string) recebe uma string que pode conter qualquer comando sql posterior ao SELECT * FROM table WHERE data=data ($options)
 <br/>
-<h3>insert( $table, $columns, $values)</h3> - Realiza uma inserção na tabela $table(string) nas $columns(array) dos $values(array).
+<h3 id="fInsert">insert( $table, $columns, $values)</h3> - Realiza uma inserção na tabela $table(string) nas $columns(array) dos $values(array).
 Ex :
 <br/>
 $table = 'user';
@@ -67,7 +78,7 @@ $values = ['Kevin G', 'email@email.com', 'gallahaaz' ];
 <br/>
 $sql-query-library-object->insert($table, $columns, $values);
 <br/>
-<h3>update( $table, $set, $where )</h3> - Realiza uma operação de atualização no banco de dados. Atualiza $table com dados de $set em $where. Ex :
+<h3 id="fUpdate">update( $table, $set, $where )</h3> - Realiza uma operação de atualização no banco de dados. Atualiza $table com dados de $set em $where. Ex :
 $table = 'user';
 <br/>
 $set = [
@@ -80,4 +91,4 @@ $values = ['Kevin G', 'email@email.com', 'gallahaaz' ];
 <br/>
 $sql-query-library-object->update($table, $columns, $values);
 <br/>
-<h3>delete( $table, $where )</h3> - Realiza uma operação de exclusão no banco de dados. Exclui um valor em $table baseado em $where
+<h3 id="fDelete">delete( $table, $where )</h3> - Realiza uma operação de exclusão no banco de dados. Exclui um valor em $table baseado em $where
