@@ -3,14 +3,15 @@
 Pequena lib de comandos sql para simplificar conexões com o mysql.
 Opera apenas com um banco de dados e schema por vez, logo é indicada para websites simples que operem apenas uma base de dados por vez.
 
-Download
+<h2>Download</h2>
 
 Composer - Apenas é necessário incluir no require : "gallahaaz/sql-query-library": "dev-master"
 
 <h2>Utilização</h2>
 
 A conexão é simples , apenas sendo necessário configurar as seguintes constantes 
-DBHOST - Host do servidor, que pode ser local ou remoto
-DBLOGIN - Login de acesso ao servidor mysql
-DBPASSWORD - Senha de acesso ao servidor mysql
-DBSCHEMA - Schema alvo do servidor
+
+<strong>DBHOST</strong> - Host do servidor, que pode ser local ou remoto
+<strong>DBLOGIN</strong> - Login de acesso ao servidor mysql
+<strong>DBPASSWORD</strong> - Senha de acesso ao servidor mysql
+<strong>DBSCHEMA</strong> - Schema alvo do servidor
