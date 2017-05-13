@@ -74,7 +74,6 @@ class Query extends Connection
             . ' ) VALUES ( '
             . $this->concatArrayValues( $values )
             . ' ); ';
-        echo $cmd;
         return $this->query( $cmd );
     }
     
