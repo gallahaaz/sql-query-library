@@ -204,7 +204,8 @@ class Query extends Connection
             return $this->query($cmd);
         }else{
             $result = $this->query($cmd);
-            return $result->fetch_array(MYSQLI_ASSOC);
+            $array = $result->fetch_array( MYSQLI_ASSOC );
+            return array_shift( $array );
         }
     }
 
