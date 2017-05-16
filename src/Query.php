@@ -3,14 +3,13 @@
 use Gallahaaz\SqlQueryLibrary\Connection as Connection;
 
 class Query extends Connection
-{
-    
+{   
     private $sqlCommands = [
         'NOW()',
         'CURDATE()',
         'CURTIME()'
     ];
-    private $last_id = null;
+    public $last_id = null;
     
     public function query( $cmd ) {
         $this->connect();
@@ -56,7 +55,7 @@ class Query extends Connection
         return $array;
     }
 
-     public function fetchSingle( $result, $method = MYSQLI_BOTH ) {
+    public function fetchSingle( $result, $method = MYSQLI_BOTH ) {
         return $result->fetch_array($method);
     }
 
@@ -144,8 +143,8 @@ class Query extends Connection
         $last = count( $array );
         foreach( $array as $key ){
             if( ( $c >= 1 ) &&( $c<$last ) ){
-                if(is_integer($key)){
-                    $string .= ", " . $key;
+                if( is_integer($key) || is_float($key) ){
+                    $string .= ", " . str_replace( ',', '.', $key);
                 }else{
                     if( in_array( $key, $this->sqlCommands ) ){
                         $string .= ", " . $key . " ";
@@ -154,7 +153,11 @@ class Query extends Connection
                     }
                 }
             }else{
-                $string .= " '" . $key . "' ";
+                if( is_integer($key) || is_float($key) ){
+                    $string .= $key ;
+                }else{
+                    $string .= " '" . $key . "' ";
+                }
             }
             $c++;
         }
@@ -191,6 +194,18 @@ class Query extends Connection
             }
         }
         return $string;
+    }
+
+    public function call( $procedure, $arguments, $single = false ){
+        $cmd = "CALL " . $procedure . "( "
+            . $this->concatArrayValues($arguments)
+            .")";
+        if( !$single ){
+            return $this->query($cmd);
+        }else{
+            $result = $this->query($cmd);
+            return $result->fetch_array(MYSQLI_ASSOC);
+        }
     }
 
 }
