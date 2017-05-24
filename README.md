@@ -96,6 +96,7 @@ $sql-query-library-object->update($table, $columns, $values);
 <br/>
 <h3 id="require">Requisitos</h3>
 <ul>
-<li>Php 5.6.x</li>
+<li> Php 5.6.x ou superior </li>
 <li>composer</li>
+<li> extensão mysqli ativa </li>
 </ul>
